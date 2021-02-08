@@ -21,6 +21,19 @@ app.get("/", (req, res)=>{
     res.render("index.ejs")
 })
 
+app.post("/form", (req, res)=>{
+    var {email, nome, pontos} = req.body
+    let err = []
+
+    if (email == undefined || email == "") err.push("Email inválido")
+    if (nome == undefined || nome == "") err.push("Nome inconclusivo")
+    if (pontos == undefined || pontos == "")err.push("Pontos inválidos")
+
+    if (err.length == 0) res.send("Sucesso")
+    else res.redirect("/")
+ 
+})
+
 app.listen(8080, ()=>{
     console.log("Servidor rodando!")
 })
