@@ -22,7 +22,14 @@ app.use(session({
 }))
 
 app.get("/", (req, res)=>{
-    res.render("index.ejs")
+    let errors = req.flash("Errors")
+    let email = req.flash("Email")
+    
+
+    errors = errors.length == 0 ? undefined : errors
+    email = (email == undefined || email.length == 0 ? "" : email)
+
+    res.render("index.ejs", {errors: errors, email: email})
 })
 
 app.post("/form", (req, res)=>{
@@ -34,7 +41,13 @@ app.post("/form", (req, res)=>{
     if (pontos == undefined || pontos == "")err.push("Pontos inválidos")
 
     if (err.length == 0) res.send("Sucesso")
-    else res.redirect("/")
+    else {
+        req.flash("Pontos", pontos)
+        req.flash("Nome", nome)
+        req.flash("Email", email)
+        req.flash("Errors", err)
+        res.redirect("/")
+    }
  
 })
 
