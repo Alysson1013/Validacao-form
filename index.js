@@ -18,8 +18,7 @@ app.use(session({
 }))
 
 app.get("/", (req, res)=>{
-    console.log("Rodando")
-    res.send("Rodando")
+    res.render("index.ejs")
 })
 
 app.listen(8080, ()=>{
