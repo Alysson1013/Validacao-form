@@ -3,6 +3,9 @@ var app = express()
 var bodyParser = require('body-parser')
 var session = require('express-session')
 var flash = require('express-flash')
+var cookieParser = require("cookie-parser")
+
+
 app.use(flash());
  
 // parse application/x-www-form-urlencoded
@@ -10,11 +13,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+app.use(cookieParser("sadsadsadsadsad"))
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { maxAge: 60000}
 }))
 
 app.get("/", (req, res)=>{
